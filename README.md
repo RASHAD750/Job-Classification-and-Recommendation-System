@@ -1,234 +1,319 @@
-#  Job Classification & Recommendation System
+# Job Posting Classification & Recommendation System
 
-An end-to-end Machine Learning project that scrapes real-time job postings, performs unsupervised clustering using NLP techniques, and provides personalized job recommendations through an interactive Streamlit web application.
+An end-to-end **Machine Learning + NLP project** that scrapes real-time job postings, clusters similar jobs using unsupervised learning, and recommends relevant jobs based on user skills through an interactive **Streamlit web application**.
 
----
-
-##  Project Overview
-
-This project automatically:
-
-1. Scrapes job postings from Karkidi
-2. Extracts job title, company, skills, summary, and experience
-3. Converts text data into numerical features using TF-IDF
-4. Applies KMeans clustering to group similar jobs
-5. Recommends jobs to users based on their skill input
-6. Allows downloading matched jobs as CSV
-
-This system demonstrates:
-
-- Web Scraping
-- Natural Language Processing (NLP)
-- Unsupervised Machine Learning
-- Model Persistence
-- Full Deployment using Streamlit
+This project demonstrates **web scraping, natural language processing, machine learning clustering, and interactive dashboard development**, making it suitable for **Data Analyst / Data Scientist / ML Engineer portfolios**.
 
 ---
 
-##  Project Architecture
+# Problem Statement
 
-```
-User Input (Skills)
-        ↓
-Streamlit Web App
-        ↓
-Job Scraper (BeautifulSoup)
-        ↓
-Preprocessing & TF-IDF Vectorization
-        ↓
+Job seekers often struggle to identify relevant job opportunities among thousands of postings across multiple platforms. Searching manually using keywords can lead to irrelevant results and inefficient job discovery.
+
+This project builds an automated **job classification and recommendation system** that:
+
+• Collects real job postings
+• Extracts required skills using NLP
+• Groups similar jobs using machine learning
+• Recommends relevant jobs based on user skill input
+
+This helps users quickly discover **best-fit job opportunities based on their technical skills**.
+
+---
+
+# Project Overview
+
+The system automatically performs the following tasks:
+
+1. Scrapes job postings from **Karkidi**
+2. Extracts job information:
+
+   * Job Title
+   * Company
+   * Location
+   * Experience
+   * Skills
+   * Summary
+3. Converts textual skill data into numerical features using **TF-IDF**
+4. Applies **KMeans clustering** to group similar jobs
+5. Allows users to input their skills
+6. Predicts the closest job cluster
+7. Displays recommended jobs
+8. Allows users to **download results as CSV**
+
+---
+
+# Application Workflow
+
+User enters skills
+↓
+Streamlit Application
+↓
+Job Scraping from Karkidi
+↓
+Text Preprocessing
+↓
+TF-IDF Feature Extraction
+↓
 KMeans Clustering
-        ↓
-Skill-Based Cluster Prediction
-        ↓
-Recommended Jobs Output (Downloadable CSV)
-```
+↓
+Cluster Prediction
+↓
+Recommended Jobs Display
 
 ---
 
-##  Machine Learning Approach
+# Application Interface
 
-###  Why Unsupervised Learning?
+The application consists of **three main stages**:
 
-Job postings are not pre-labeled into categories.  
-Therefore, KMeans clustering is used to automatically group similar jobs based on skill similarity.
+### 1️⃣ Scrape Jobs
 
-###  Text Vectorization
+Fetches real job postings from **Karkidi** using BeautifulSoup.
 
-TF-IDF (Term Frequency – Inverse Document Frequency) is used to:
+Displayed information includes:
 
-- Convert textual skill data into numerical vectors
-- Reduce importance of common words
-- Highlight distinguishing skills
+* Job Title
+* Company
+* Location
+* Experience
+* Summary
 
-###  Clustering Algorithm
+---
 
-KMeans groups jobs into `n_clusters = 5` clusters based on skill similarity.
+### 2️⃣ Preprocess & Cluster
+
+This step performs machine learning processing:
+
+• Cleans job data
+• Extracts skill features
+• Applies **TF-IDF vectorization**
+• Performs **KMeans clustering**
+• Assigns cluster labels to each job
 
 Each cluster represents a hidden job category such as:
 
-- Data Science
-- Machine Learning
-- Data Engineering
-- Business Intelligence
-- Analytics
+* Data Science
+* Machine Learning
+* Data Engineering
+* Business Intelligence
+* Analytics
 
 ---
 
-##  Project Structure
+### 3️⃣ Recommend Jobs
 
-```
-job-classification-project/
-│
-├── app.py                   # Streamlit Web Application
-├── scraper.py               # Job Scraper (BeautifulSoup)
-├── model_training.py        # TF-IDF + KMeans Clustering
-├── clustered_jobs.csv       # Output clustered dataset
-├── model.pkl                # Trained KMeans model
-├── vectorizer.pkl           # Saved TF-IDF vectorizer
-├── requirements.txt         # Dependencies
-└── README.md                # Project Documentation
-```
+Users enter their skills (comma-separated):
 
----
+Example:
 
-##  Technologies Used
-
-- Python
-- Pandas
-- BeautifulSoup
-- Requests
-- Scikit-learn
-- TF-IDF
-- KMeans
-- Joblib
-- Streamlit
-
----
-
-##  How to Run This Project
-
-### 1️. Clone the Repository
-
-```bash
-git clone https://github.com/your-username/job-classification-project.git
-cd job-classification-project
-```
-
-### 2️. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3️. Run the Application
-
-```bash
-streamlit run app.py
-```
-
-The application will open in your browser.
-
----
-
-##  Application Workflow
-
-### Step 1: Scrape Jobs
-Click **"Scrape Jobs"** to fetch job postings from Karkidi.
-
-### Step 2: Preprocess & Cluster
-Click **"Preprocess & Cluster"** to:
-- Apply TF-IDF
-- Train KMeans
-- Assign cluster labels
-
-### Step 3: Recommend Jobs
-Enter your skills:
-
-```
 Python, SQL, Machine Learning
-```
 
-Click **"Recommend Jobs"**
+The system then:
 
-The system:
-- Converts your skills to TF-IDF
-- Predicts cluster
-- Displays matching jobs
-- Allows CSV download
+• Converts skills into TF-IDF vectors
+• Predicts the closest job cluster
+• Displays matching job postings
+• Allows downloading results as CSV
 
 ---
 
-##  Sample Use Case
+# Example Use Case
 
 If a user enters:
 
-```
 Python, NLP, Deep Learning
-```
 
 The system will:
-- Predict the closest job cluster
-- Display jobs related to ML / AI roles
-- Provide downloadable results
+
+1. Convert the skills into TF-IDF features
+2. Predict the closest cluster
+3. Display jobs related to **AI / Machine Learning roles**
 
 ---
 
-##  Model Design Details
+# Machine Learning Approach
 
-### TF-IDF Vectorization
+## Why Unsupervised Learning?
+
+Job postings do not come with predefined categories.
+
+Therefore, **KMeans clustering** is used to automatically discover natural job groupings based on skill similarity.
+
+---
+
+# Text Vectorization (TF-IDF)
+
+TF-IDF converts text data into numerical vectors by:
+
+• Highlighting important skill words
+• Reducing importance of common words
+• Representing job skill sets mathematically
+
+Example implementation:
 
 ```python
 vectorizer = TfidfVectorizer(stop_words='english')
 X = vectorizer.fit_transform(df['Skills'])
 ```
 
-### KMeans Clustering
+---
+
+# Clustering Algorithm
+
+KMeans groups job postings based on skill similarity.
 
 ```python
 kmeans = KMeans(n_clusters=5, random_state=42)
 df['Cluster'] = kmeans.fit_predict(X)
 ```
 
-### Model Persistence
+Each cluster represents a **hidden job category**.
+
+---
+
+# Model Persistence
+
+The trained model and vectorizer are saved for reuse.
 
 ```python
 joblib.dump(kmeans, 'model.pkl')
 joblib.dump(vectorizer, 'vectorizer.pkl')
 ```
 
----
-
-##  Key Features
-
-✔ Real-time Job Scraping  
-✔ Automatic Job Categorization  
-✔ Unsupervised Machine Learning  
-✔ Skill-Based Recommendation  
-✔ Downloadable Results  
-✔ Clean Interactive UI  
+This avoids retraining the model every time the application runs.
 
 ---
 
-##  Future Improvements
+# Project Structure
 
-- Replace TF-IDF with BERT embeddings
-- Use cosine similarity ranking instead of cluster matching
-- Add dashboard analytics (jobs per cluster visualization)
-- Deploy to Streamlit Cloud
-- Add keyword frequency visualization
+```
+job-classification-project
+│
+├── app.py                # Streamlit web application
+├── scraper.py            # Job scraper using BeautifulSoup
+├── model_training.py     # TF-IDF + KMeans clustering
+├── clustered_jobs.csv    # Clustered job dataset
+├── model.pkl             # Saved clustering model
+├── vectorizer.pkl        # TF-IDF vectorizer
+├── requirements.txt      # Project dependencies
+└── README.md
+```
+
+---
+
+# Technologies Used
+
+Python
+Pandas
+BeautifulSoup
+Requests
+Scikit-learn
+TF-IDF
+KMeans Clustering
+Joblib
+Streamlit
 
 ---
 
-##  Possible Interview Questions
+# Requirements
 
-### Why did you use KMeans?
-Because job categories were not labeled. KMeans allows discovering natural groupings in the dataset.
+Install dependencies using:
 
-### Why TF-IDF?
-TF-IDF highlights important skill words while reducing noise from common terms.
+```
+pip install -r requirements.txt
+```
 
-### How can this be improved?
-Using transformer embeddings (BERT) for better semantic understanding and ranking with cosine similarity.
+Main libraries:
+
+```
+streamlit
+pandas
+beautifulsoup4
+requests
+scikit-learn
+joblib
+```
 
 ---
+
+# How to Run the Project
+
+### 1. Clone the Repository
+
+```
+git clone https://github.com/your-username/job-classification-project.git
+cd job-classification-project
+```
+
+---
+
+### 2. Install Dependencies
+
+```
+pip install -r requirements.txt
+```
+
+---
+
+### 3. Run the Application
+
+```
+streamlit run app.py
+```
+
+The application will open automatically in your browser.
+
+---
+
+# Key Features
+
+Real-time job scraping
+Automatic job categorization
+Unsupervised machine learning clustering
+Skill-based job recommendation
+Downloadable job results (CSV)
+Interactive Streamlit interface
+
+---
+
+# Skills Demonstrated
+
+Web scraping
+Natural language processing
+Machine learning clustering
+Recommendation systems
+Data preprocessing
+Model persistence
+Interactive dashboard development
+
+---
+
+# Future Improvements
+
+Replace TF-IDF with **BERT embeddings**
+Add **cosine similarity ranking** for better recommendations
+Add **job analytics dashboard** (jobs per cluster)
+Deploy application on **Streamlit Cloud**
+Add **data visualization charts**
+Support multiple job websites
+
+---
+
+# Use Cases
+
+Job recommendation platforms
+Skill-based job matching systems
+Career analytics tools
+NLP portfolio project
+Machine learning academic project
+
+---
+
+# Author
+
+Rashad
+Data Analyst | Python | SQL | Power BI | Machine Learning
+
+GitHub: https://github.com/RASHAD750
 
